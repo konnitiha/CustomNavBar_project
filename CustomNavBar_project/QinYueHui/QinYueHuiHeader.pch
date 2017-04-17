@@ -1,0 +1,99 @@
+//
+//  QinYueHuiHeader.pch
+//  QinYueHui
+//
+//  Created by FuYunLei on 2017/3/30.
+//  Copyright © 2017年 FuYunLei. All rights reserved.
+//
+
+#ifndef QinYueHuiHeader_pch
+#define QinYueHuiHeader_pch
+
+
+#ifdef __OBJC__
+
+#import "FYLUtility.h"
+#import "MyDownload.h"
+#import <MBProgressHUD.h>
+#import <SVProgressHUD.h>
+
+#endif
+
+#define kCanUseObj(str) ( (str != nil) && ![str isKindOfClass:[NSNull class]])
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width     //屏幕宽度
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height    //屏幕高度
+#define kScale_Horizontal (SCREEN_WIDTH/375.f)
+
+#define FYLWindow ([UIApplication sharedApplication].keyWindow)
+
+//颜色
+#define kCOLORWITHHEX(hex)  [UIColor colorWithHex:hex]
+//导航条 背景色.标题颜色.按钮颜色
+#define kColor_NavBar_White kCOLORWITHHEX(0xffffff)
+#define kColor_BarTitle_Blue kCOLORWITHHEX(0x87BEF5)
+#define kColor_BarTint_Gray kCOLORWITHHEX(0xB6BBC2)
+
+//字体
+#define kTextFont(size) [UIFont systemFontOfSize:size]
+#define kMainFont kTextFont(16)
+
+//通知
+// 注册通知
+#define FYLNotifiAdd(_noParamsFunc, _notifyName)  [[NSNotificationCenter defaultCenter] \
+addObserver:self \
+selector:@selector(_noParamsFunc) \
+name:_notifyName \
+object:nil];
+
+// 发送通知
+#define FYLNotifiPost(_notifyName)   [[NSNotificationCenter defaultCenter]postNotificationName:_notifyName object:nil];
+
+// 移除通知
+#define FYLNotifiRemove(_notifyName) [[NSNotificationCenter defaultCenter] removeObserver:self name:_notifyName object:nil];
+
+// 移除所有通知
+#define FYLNotifiAllRemove [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+// 根视图控制器
+#define FYLRootVC (UITabBarController *)[[UIApplication sharedApplication].delegate window].rootViewController
+
+
+// 颜色16进制转换
+#define FYLColorFromHexadecimalRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define FYLColorFromHexadecimalRGBA(rgbValue, alphaValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:alphaValue]
+
+#define FYLColorFromRGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+#define FYLColorFromRGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+//偏好设置
+#define kUSER [NSUserDefaults standardUserDefaults]
+
+//#define kUSER_Mobile [kUSER objectForKey:@"userMobile"]
+//#define kUSER_Token [kUSER objectForKey:@"token"]
+#define kUSER_Id [kUSER objectForKey:@"userid"]
+//#define kUSER_Icon [kUSER objectForKey:@"userIcon"]
+//#define kUSER_Name [kUSER objectForKey:@"userName"]
+
+#define kISONLINE kCanUseObj([[NSUserDefaults standardUserDefaults] objectForKey:@"userid"])
+
+//
+#ifdef DEBUG
+#define LOG(...) NSLog(__VA_ARGS__);
+#define LOG_METHOD NSLog(@"%s", __func__);
+#else
+#define LOG(...);
+#define LOG_METHOD ;
+#endif
+
+#ifdef DEBUG
+#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLog(...)
+#endif
+
+#define WeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+#define kSelfWeak __weak typeof(self) weakSelf = self;
+
+
+#endif /* QinYueHuiHeader_pch */
